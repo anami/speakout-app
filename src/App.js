@@ -40,7 +40,7 @@ function App() {
 
       <ProgressBar progress={state.progress} />
       <div>
-        <button value="Clear">Clear</button>
+        <button value="Clear" onClick={e => dispatch({type: 'CLEAR'})}>Clear</button>
       </div>
     </div>
   );

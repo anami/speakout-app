@@ -19,6 +19,16 @@ html {
   line-height: 1.5;
 }
 
+*,
+ ::before,
+ ::after {
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    box-sizing: border-box;
+    font-weight: normal;
+}
+
 header,
 footer {
     display: flex;
@@ -28,6 +38,12 @@ footer {
     padding: 1rem 0.5rem;
     background-color: #d600ff;
     color: #fff;
+}
+
+h1 {
+  text-align: center;
+  font-size: 1.75rem;
+  margin-right: 1rem;
 }
 
 footer {

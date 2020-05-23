@@ -35,7 +35,7 @@ export default class SpeechEngine {
         };
         utterance.onend = e => {
             window.speechSynthesis.cancel();
-            
+
             this.speaking = false;
             this.update('FINISHED')
         };
@@ -73,8 +73,6 @@ export default class SpeechEngine {
     }
 
     speak(phrase) {
-
-
         // if the pause is nothing - then stop
         if (phrase.length === 0) {
             window.speechSynthesis.cancel()
@@ -87,6 +85,7 @@ export default class SpeechEngine {
                 this.phrase = phrase;
                 this.speechUtterance = new SpeechSynthesisUtterance(phrase);
                 this.attachUtteranceEventHandlers(this.speechUtterance);
+                console.log('voice: ', this.speechUtterance.voice)
                 // this.speechUtterance.voice = this.selectedVoice || this.speechUtterance.voice;
                 // this.speechUtterance.pitch = this.pitch;
                 // this.speechUtterance.rate = this.rate;

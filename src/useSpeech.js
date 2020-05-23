@@ -48,6 +48,9 @@ export default function useSpeech(speechEngine) {
         case 'STOP':
           speechEngine.stop();
           return { ...state, isPlaying: false, progress: 0 }
+        case 'CLEAR':
+          speechEngine.stop();
+          return { ...state, isPlaying: false, progress: 0, text: '' }
         default: return state;
       }
   
