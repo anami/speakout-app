@@ -11,3 +11,115 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+html {
+  font-size: calc(1em + 0.4vw);
+  color: #d600ff;
+  font-family: Fredoka One, sans-serif;
+  line-height: 1.5;
+}
+
+.speakout-app {
+  margin: 2.25rem auto;
+  max-width: 45rem;
+  padding: 0 1.5rem;
+  text-align: center;
+}
+
+.speakout-app textarea {
+  width: 90%;
+  min-height: 6rem;
+  border: solid 6px #d600ff;
+  padding: 0.25rem;
+}
+
+.speakout-app button {
+  background-color: #d600ff;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 0.25rem 5rem;
+  font-weight: normal;
+  margin: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.speakout-app select {
+  border: solid 4px #d600ff;
+  padding: 0.25rem;
+}
+
+.speakout-app play-button button,
+.speakout-app stop-button button {
+  width: 3rem;
+  height: 3rem;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  border-radius: 50%;
+}
+
+.speakout-app play-button button[aria-pressed="false"] .pause-icon {
+  display: none;
+}
+
+.speakout-app play-button button[aria-pressed="true"] .play-icon {
+  display: none;
+}
+
+.speakout-app button:focus {
+  border: solid 5px red;
+  outline: 0;
+}
+
+.speakout-app fieldset {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: solid 4px #d600ff;
+}
+
+.speakout-options {
+  display: none;
+  opacity: 0;
+  animation: animFadeIn ease-out .5s;
+}
+
+.speakout-options.visible {
+  display: block;
+  opacity: 1;
+}
+
+@keyframes animFadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes animFadeOut {
+  from {
+      opacity: 1;
+  }
+  to {
+      opacity: 0;
+  }
+}
+
+
+.speech__progress {
+  border: solid 3px #d600ff;
+  padding: 0.25rem;
+  margin: 0;
+  height: 2rem;
+  margin-top: 0.5rem;
+}
+
+.speech__progress-bar {
+  background-color: #d600ff;
+  height: 100%;
+  transition: 0.25s;
+}
+
