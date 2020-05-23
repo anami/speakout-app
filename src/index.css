@@ -51,8 +51,7 @@ html {
   padding: 0.25rem;
 }
 
-.speakout-app play-button button,
-.speakout-app stop-button button {
+.speakout-app .play-button {
   width: 3rem;
   height: 3rem;
   border: 0;
@@ -61,11 +60,11 @@ html {
   border-radius: 50%;
 }
 
-.speakout-app play-button button[aria-pressed="false"] .pause-icon {
+.speakout-app .play-button[aria-pressed="false"] .pause-icon {
   display: none;
 }
 
-.speakout-app play-button button[aria-pressed="true"] .play-icon {
+.speakout-app .play-button[aria-pressed="true"] .play-icon {
   display: none;
 }
 

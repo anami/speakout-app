@@ -1,8 +1,11 @@
 import React from 'react';
 
-export default function PlayButton() {
+export default function PlayPauseButton({className, isPlaying, onPlay, onPause}) {
+    const ariaPressed = isPlaying ? 'true' : 'false';
+    const onClick = isPlaying ? onPause : onPlay;
+
     return (
-        <button aria-pressed="true" aria-label="play">
+        <button className={className} onClick={onClick} aria-pressed={ariaPressed} aria-label="play">
             <svg viewBox="0 0 100 100">
             <g transform="translate(0 -952.36)">
                 <g className="pause-icon" transform="translate(1.0714 .71367)">
