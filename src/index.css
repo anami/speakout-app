@@ -1,8 +1,8 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -15,9 +15,33 @@ code {
 html {
   font-size: calc(1em + 0.4vw);
   color: #d600ff;
-  font-family: Fredoka One, sans-serif;
+  font-family: "Fredoka One", sans-serif;
   line-height: 1.5;
 }
+
+header,
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 1rem 0.5rem;
+    background-color: #d600ff;
+    color: #fff;
+}
+
+footer {
+    background-color: #fff;
+    color: #d600ff;
+    margin: 0;
+}
+
+#speakout-app {
+  background-color: #fff;
+  background-image: radial-gradient(#d600ff, transparent 16%), radial-gradient(#d600ff, transparent 16%);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+} 
 
 .speakout-app {
   margin: 2.25rem auto;
@@ -51,7 +75,8 @@ html {
   padding: 0.25rem;
 }
 
-.speakout-app .play-button {
+.speakout-app .play-button,
+.speakout-app .stop-button {
   width: 3rem;
   height: 3rem;
   border: 0;
