@@ -4,6 +4,7 @@ import { useEffect, useReducer } from 'react';
 export default function useSpeech(speechEngine) {
     // useSpeech Hook.
     const [state, dispatch] = useReducer((state, action) => {
+        //console.log('DISPATCH: ',action.type);
       switch(action.type) {
         case 'SP_PROGRESS':
           return {
@@ -34,10 +35,15 @@ export default function useSpeech(speechEngine) {
             ...state,
             voices: speechEngine.voices
           }
+        case 'SP_SET_VOICE':
+            return {
+                ...state,
+                selectedVoice: speechEngine.selectedVoice
+            }
         case 'SET_TEXT':
           return {
             ...state,
-            text: action.text
+            text: action.payload
           }
         case 'PLAY':
           speechEngine.speak(state.text);
@@ -51,6 +57,9 @@ export default function useSpeech(speechEngine) {
         case 'CLEAR':
           speechEngine.stop();
           return { ...state, isPlaying: false, progress: 0, text: '' }
+        case 'SET_VOICE':
+          speechEngine.setVoice(action.payload);
+          break;
         default: return state;
       }
   
@@ -61,19 +70,22 @@ export default function useSpeech(speechEngine) {
       text: 'Welcome to Speakout! Type anything here and press play. Have fun!',
       progress: 0, 
       isPlaying: false,
-      voices: []
+      voices: [],
+        selectedVoice: undefined,
+        isAvailable: false
     });
   
     // Run this useEffect only once - initialise speech engine..
     useEffect(e => {
       // subscribe to the speech engine update event.
       speechEngine.subscribe(updateType => {
+          console.log('UPDATE: ', updateType);
         dispatch({
           type: 'SP_' + updateType
         })
       });
       speechEngine.initialise();
-    }, [dispatch]);
+    }, [dispatch, speechEngine]);
   
     return [state, dispatch]
 }

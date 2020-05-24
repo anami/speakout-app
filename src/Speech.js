@@ -10,6 +10,7 @@ export default class SpeechEngine {
         this.progress = 0;
         this.lastError = '';
         this.speaking = false;
+        this.selectedVoice = null;
     }
 
     initialise() {
@@ -72,6 +73,14 @@ export default class SpeechEngine {
         this.callbacks.push(callback);
     }
 
+    setVoice(voiceURI) {
+        const voices = this.voices.filter(v => v.voiceURI === voiceURI);
+        if (voices) {
+            this.selectedVoice = voices[0];
+            this.update('VOICE_CHANGED');
+        }
+    }
+
     speak(phrase) {
         // if the pause is nothing - then stop
         if (phrase.length === 0) {
@@ -79,6 +88,7 @@ export default class SpeechEngine {
         } else {
             if (phrase === this.phrase) {
                 // if the phrase is still the same. 
+                this.speechUtterance.voice = this.selectedVoice;
                 window.speechSynthesis.speak(this.speechUtterance);
             } else {
                 // it is a new phrase
@@ -86,7 +96,7 @@ export default class SpeechEngine {
                 this.speechUtterance = new SpeechSynthesisUtterance(phrase);
                 this.attachUtteranceEventHandlers(this.speechUtterance);
                 console.log('voice: ', this.speechUtterance.voice)
-                // this.speechUtterance.voice = this.selectedVoice || this.speechUtterance.voice;
+                this.speechUtterance.voice = this.selectedVoice;
                 // this.speechUtterance.pitch = this.pitch;
                 // this.speechUtterance.rate = this.rate;
                 // this.speechUtterance.volume = this.volume;
