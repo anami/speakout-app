@@ -9,7 +9,6 @@ import useSpeech from './useSpeech';
 
 const speechEngine = new SpeechEngine();
 
-
 function App() {
  
   const [state, dispatch] = useSpeech(speechEngine);

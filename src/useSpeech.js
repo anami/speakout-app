@@ -57,20 +57,24 @@ export default function useSpeech(speechEngine) {
           return { ...state, isPlaying: false, progress: 0 };
         case "CLEAR":
           speechEngine.stop();
-          return { ...state, isPlaying: false, progress: 0, text: "" };
+          return {
+            ...state,
+            isPlaying: false,
+            progress: 0,
+            text: "",
+          };
         case "SET_VOICE":
           speechEngine.setVoice(action.payload);
           break;
         case "SET_VOLUME":
-            console.log(action);
-            speechEngine.volume = parseFloat(action.payload);
-            break;
+          speechEngine.volume = parseFloat(action.payload);
+          break;
         case "SET_PITCH":
-            speechEngine.pitch = parseFloat(action.payload);
-            break;
+          speechEngine.pitch = parseFloat(action.payload);
+          break;
         case "SET_RATE":
-            speechEngine.rate = parseFloat(action.payload);
-            break;
+          speechEngine.rate = parseFloat(action.payload);
+          break;
         default:
           return state;
       }
@@ -87,7 +91,7 @@ export default function useSpeech(speechEngine) {
       isAvailable: false,
       volume: 0,
       pitch: speechEngine.pitch,
-      rate: speechEngine.rate
+      rate: speechEngine.rate,
     }
   );
 
