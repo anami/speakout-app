@@ -11,6 +11,9 @@ export default class SpeechEngine {
         this.lastError = '';
         this.speaking = false;
         this.selectedVoice = null;
+        this.volume = 100.0;
+        this.rate = 10.0;
+        this.pitch = 10.0;
     }
 
     initialise() {
@@ -89,6 +92,10 @@ export default class SpeechEngine {
             if (phrase === this.phrase) {
                 // if the phrase is still the same. 
                 this.speechUtterance.voice = this.selectedVoice;
+                this.speechUtterance.volume = this.volume / 100;
+                this.speechUtterance.pitch = this.pitch / 10;
+                this.speechUtterance.rate = this.rate / 10;
+                console.log(this.speechUtterance);
                 window.speechSynthesis.speak(this.speechUtterance);
             } else {
                 // it is a new phrase
@@ -97,9 +104,9 @@ export default class SpeechEngine {
                 this.attachUtteranceEventHandlers(this.speechUtterance);
                 console.log('voice: ', this.speechUtterance.voice)
                 this.speechUtterance.voice = this.selectedVoice;
-                // this.speechUtterance.pitch = this.pitch;
-                // this.speechUtterance.rate = this.rate;
-                // this.speechUtterance.volume = this.volume;
+                this.speechUtterance.pitch = this.pitch / 10;
+                this.speechUtterance.rate = this.rate / 10;
+                this.speechUtterance.volume = this.volume / 100;
                 this.progress = 0;
                 this.update('PROGRESS');
                 console.log(this.speechUtterance);

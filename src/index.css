@@ -163,3 +163,24 @@ footer {
   transition: 0.25s;
 }
 
+button.button--options {
+  width: 2rem;
+  height: 2rem;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  transition: transform 0.5s ease-out;
+}
+
+button.button--options[aria-expanded="true"] {
+  transform: rotate(45deg);
+}
+
+button.button--options svg {
+  width: inherit;
+  height: inherit;
+  color: #d600ff;
+  fill: #d600ff;
+  outline: none;
+}
+

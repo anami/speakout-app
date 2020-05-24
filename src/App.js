@@ -4,7 +4,7 @@ import PlayPauseButton from './components/playpausebutton';
 import StopButton from './components/stopbutton';
 import ProgressBar from  './components/progressbar';
 import SpeechEngine from './Speech';
-import VoiceList from './components/voicelist';
+import SettingsPanel from './components/settingsPanel';
 import useSpeech from './useSpeech';
 
 const speechEngine = new SpeechEngine();
@@ -31,10 +31,6 @@ function App() {
     dispatch({ type: 'STOP'});
   }
 
-  const onVoiceChange = e => {
-      dispatch({ type: 'SET_VOICE', payload: e.target.value });
-  };
-
   return (
     <div className="speakout-app">
       <PlayPauseButton className="play-button" 
@@ -47,8 +43,8 @@ function App() {
       <div>
         <button value="Clear" onClick={e => dispatch({type: 'CLEAR'})}>Clear</button>
       </div>
-      <VoiceList voices={state.voices} 
-        onVoiceChange={onVoiceChange} selectedVoice={state.selectedVoice} />
+      <SettingsPanel state={state} dispatch={dispatch} />
+
     </div>
   );
 }
