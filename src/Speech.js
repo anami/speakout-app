@@ -10,9 +10,9 @@ export default class SpeechEngine {
     this.lastError = "";
     this.speaking = false;
     this.selectedVoice = null;
-    this.volume = 100.0;
-    this.rate = 10.0;
-    this.pitch = 10.0;
+    this.volume = 100.0;    // 0 to 1 - default 1
+    this.rate = 10.0;       // 0.1 to 10 - default 1
+    this.pitch = 10.0;      // 0 to 2 - default 1
   }
 
   initialise() {
@@ -49,6 +49,10 @@ export default class SpeechEngine {
         partialLength = e.charIndex + words[0].length;
 
       this.progress = (partialLength * 100) / textLength;
+      if (this.progress >= 100) {
+        this.update('FINISHED');
+        return;
+      }
       this.update("PROGRESS");
     };
 
@@ -58,9 +62,23 @@ export default class SpeechEngine {
     };
   }
 
+  createUtterance(phrase) {
+    this.phrase = phrase;
+    this.speechUtterance = new SpeechSynthesisUtterance(phrase);
+    this.attachUtteranceEventHandlers(this.speechUtterance);
+    console.log("voice: ", this.speechUtterance.voice);
+    this.speechUtterance.voice = this.selectedVoice;
+    this.speechUtterance.pitch = Number((this.pitch / 10).toFixed(2));
+    this.speechUtterance.rate = Number((this.rate / 10).toFixed(2));
+    this.speechUtterance.volume = Number((this.volume / 100).toFixed(2));
+    // this.progress = 0;
+    // this.update("PROGRESS");
+    console.log(this.speechUtterance);
+    return this.speechUtterance;
+  }
+
   getVoices() {
     this.voices = window.speechSynthesis.getVoices();
-    console.log(this.voices);
     this.update("GET_VOICES");
   }
 
@@ -91,24 +109,22 @@ export default class SpeechEngine {
       if (phrase === this.phrase) {
         // if the phrase is still the same.
         this.speechUtterance.voice = this.selectedVoice;
-        this.speechUtterance.volume = this.volume / 100;
-        this.speechUtterance.pitch = this.pitch / 10;
-        this.speechUtterance.rate = this.rate / 10;
+        this.speechUtterance.pitch = Number((this.pitch / 10).toFixed(2));
+        this.speechUtterance.rate = Number((this.rate / 10).toFixed(2));
+        this.speechUtterance.volume = Number((this.volume / 100).toFixed(2));
         console.log(this.speechUtterance);
-        window.speechSynthesis.speak(this.speechUtterance);
+        if (this.progress < 100){
+            window.speechSynthesis.resume();
+        } else {
+            this.createUtterance(phrase);
+            this.progress = 0;
+            window.speechSynthesis.speak(this.speechUtterance);
+        }
+        
       } else {
         // it is a new phrase
-        this.phrase = phrase;
-        this.speechUtterance = new SpeechSynthesisUtterance(phrase);
-        this.attachUtteranceEventHandlers(this.speechUtterance);
-        console.log("voice: ", this.speechUtterance.voice);
-        this.speechUtterance.voice = this.selectedVoice;
-        this.speechUtterance.pitch = this.pitch / 10;
-        this.speechUtterance.rate = this.rate / 10;
-        this.speechUtterance.volume = this.volume / 100;
+        this.createUtterance(phrase);
         this.progress = 0;
-        this.update("PROGRESS");
-        console.log(this.speechUtterance);
         window.speechSynthesis.speak(this.speechUtterance);
       }
     }

@@ -6,6 +6,7 @@ export default function useSpeech(speechEngine) {
   const [state, dispatch] = useReducer(
     (state, action) => {
       //console.log('DISPATCH: ',action.type);
+      console.log(action);
       switch (action.type) {
         case "SP_PROGRESS":
           return {
@@ -68,13 +69,13 @@ export default function useSpeech(speechEngine) {
           break;
         case "SET_VOLUME":
           speechEngine.volume = parseFloat(action.payload);
-          break;
+          return { ...state, volume: speechEngine.volume }
         case "SET_PITCH":
           speechEngine.pitch = parseFloat(action.payload);
-          break;
+          return { ...state, pitch: speechEngine.pitch }
         case "SET_RATE":
           speechEngine.rate = parseFloat(action.payload);
-          break;
+          return { ...state, rate: speechEngine.rate }
         default:
           return state;
       }
@@ -89,7 +90,7 @@ export default function useSpeech(speechEngine) {
       voices: [],
       selectedVoice: undefined,
       isAvailable: false,
-      volume: 0,
+      volume: speechEngine.volume,
       pitch: speechEngine.pitch,
       rate: speechEngine.rate,
     }

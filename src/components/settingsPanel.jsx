@@ -6,7 +6,7 @@ import "./range.css";
 export default function SettingsPanel({ state, dispatch }) {
   const [open, setOpen] = useState(false);
   const [openOptions, setOpenOptions] = useState("");
-  const { voices, selectedVoice, volume } = state;
+  const { voices, selectedVoice } = state;
 
   useEffect(
     (e) => {
@@ -42,47 +42,58 @@ export default function SettingsPanel({ state, dispatch }) {
         <legend>Options</legend>
         <div className="speakout-options__section">
           <label htmlFor="voice">Speaker</label>
-          <VoiceList
-            voices={voices}
-            onVoiceChange={onVoiceChange}
-            selectedVoice={selectedVoice}
-          />
+          <div>
+            <VoiceList
+              voices={voices}
+              onVoiceChange={onVoiceChange}
+              selectedVoice={selectedVoice}
+            />
+          </div>
         </div>
         <div className="speakout-options__section">
           <label htmlFor="volume">Volume</label>
-          <input
-            name="volume"
-            type="range"
-            min="0"
-            max="100"
-            step="5"
-            onChange={onVolumeChange}
-            defaultValue={state.volume}
-          />
+          <div>
+            <input
+              name="volume"
+              type="range"
+              min="0"
+              max="100"
+              step="5"
+              onChange={onVolumeChange}
+              defaultValue={state.volume}
+            />
+            <label>{state.volume}</label>
+          </div>
         </div>
         <div className="speakout-options__section">
           <label htmlFor="pitch">Pitch</label>
-          <input
-            name="pitch"
-            type="range"
-            min="0"
-            max="20"
-            step="1"
-            onChange={onPitchChange}
-            defaultValue={state.pitch}
-          />
+          <div>
+            <input
+              name="pitch"
+              type="range"
+              min="0"
+              max="20"
+              step="1"
+              onChange={onPitchChange}
+              defaultValue={state.pitch}
+            />
+            <label>{state.pitch}</label>
+          </div>
         </div>
         <div className="speakout-options__section">
           <label htmlFor="rate">Rate</label>
-          <input
-            name="rate"
-            type="range"
-            min="1"
-            max="100"
-            step="1"
-            onChange={onRateChange}
-            defaultValue={state.rate}
-          />
+          <div>
+            <input
+              name="rate"
+              type="range"
+              min="1"
+              max="100"
+              step="1"
+              onChange={onRateChange}
+              defaultValue={state.rate}
+            />
+            <label>{state.rate}</label>
+          </div>
         </div>
       </fieldset>
     </React.Fragment>
